@@ -678,13 +678,13 @@ void() CheckRules =
 	timelimit = cvar("timelimit") * 60;
 	fraglimit = cvar("fraglimit");
 
-	if (timelimit && time >= timelimit)
+	if (deathmatch && timelimit && time >= timelimit)
 	{
 		NextLevel ();
 		return;
 	}
 
-	if (fraglimit && self.frags >= fraglimit)
+	if (deathmatch && fraglimit && self.frags >= fraglimit)
 	{
 		NextLevel ();
 		return;
