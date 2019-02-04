@@ -910,6 +910,7 @@ void() PlayerPreThink =
 
 	if (intermission_running)
 	{
+		self.items = self.items - (self.items & (IT_INVISIBILITY | IT_INVULNERABILITY | IT_SUIT | IT_QUAD));
 		IntermissionThink ();	// otherwise a button could be missed between
 		return;					// the think tics
 	}
