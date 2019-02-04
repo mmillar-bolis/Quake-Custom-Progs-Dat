@@ -354,6 +354,9 @@ float() FindTarget =
 	local entity	client;
 	local float		r;
 
+	if (intermission_running)
+		return FALSE;
+
 // if the first spawnflag bit is set, the monster will only wake up on
 // really seeing the player, not another monster getting angry
 
@@ -682,21 +685,39 @@ void(float dist) ai_run =
 
 	movedist = dist;
 // see if the enemy is dead
-	if (self.enemy.health <= 0)
+	if (self.enemy.health <= 0 || (intermission_running && self.enemy.classname == "player"))
 	{
 		self.enemy = world;
 	// FIXME: look all around for other targets
-		if (self.oldenemy.health > 0)
+		if (self.oldenemy.health > 0 && !(intermission_running && self.oldenemy.classname == "player"))
 		{
 			self.enemy = self.oldenemy;
 			HuntTarget ();
 		}
 		else
 		{
-			if (self.movetarget)
-				self.th_walk ();
+			if (self.target)
+			{
+				self.goalentity = self.movetarget = find(world, targetname, self.target);
+				if (!self.movetarget)
+				{
+					dprint ("Monster can't find target at ");
+					dprint (vtos(self.origin));
+					dprint ("\n");
+				}
+				if (self.movetarget.classname == "path_corner")
+					self.th_walk ();
+				else
+				{
+					self.pausetime = 99999999;
+					self.th_stand ();
+				}
+			}
 			else
+			{
+				self.pausetime = 99999999;
 				self.th_stand ();
+			}
 			return;
 		}
 	}
