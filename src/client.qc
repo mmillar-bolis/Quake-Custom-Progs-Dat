@@ -387,6 +387,9 @@ Player entered the suicide command
 */
 void() ClientKill =
 {
+	if ((intermission_running)&&((coop)||(deathmatch)))
+		return;
+
 	bprint (self.netname);
 	bprint (" suicides\n");
 	set_suicide_frame ();
