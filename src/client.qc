@@ -1190,7 +1190,12 @@ void() ClientDisconnect =
 	bprint (self.netname);
 	bprint (" left the game with ");
 	bprint (ftos(self.frags));
-	bprint (" frags\n");
+
+	if (self.frags == 1)
+		bprint (" frag\n");
+	else
+		bprint (" frags\n");
+
 	sound (self, CHAN_BODY, "player/tornoff2.wav", 1, ATTN_NONE);
 	set_suicide_frame ();
 };
