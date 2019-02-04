@@ -1212,6 +1212,9 @@ void() ClientDisconnect =
 	set_suicide_frame ();
 	CopyToBodyQue(self);
 	setmodel(self, string_null);
+
+	self.classname = string_null;
+	self.health = 0;
 };
 
 /*
