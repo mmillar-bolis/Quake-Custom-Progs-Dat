@@ -294,10 +294,13 @@ void() changelevel_touch =
 	if (other.classname != "player")
 		return;
 
-	if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
+	if (deathmatch)
 	{
-		T_Damage (other, self, self, 50000);
-		return;
+		if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
+		{
+			T_Damage (other, self, self, 50000);
+			return;
+		}
 	}
 
 	if (coop || deathmatch)
