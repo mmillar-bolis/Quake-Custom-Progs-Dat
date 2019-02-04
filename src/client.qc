@@ -516,7 +516,7 @@ void() PutClientInServer =
 	
 //	spot = SelectSpawnPoint ();
 
-	self.origin = spot.origin + '0 0 1';
+	self.origin = self.oldorigin = spot.origin + '0 0 1';
 	self.angles = spot.angles;
 	self.fixangle = TRUE;		// turn this way immediately
 
