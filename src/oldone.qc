@@ -133,6 +133,7 @@ void() finale_1 =
 		pl.angles = other.v_angle = pos.mangle;
 		pl.fixangle = TRUE;		// turn this way immediately
 		pl.map = self.map;
+		pl.think = SUB_Null;
 		pl.nextthink = time + 0.5;
 		pl.takedamage = DAMAGE_NO;
 		pl.solid = SOLID_NOT;

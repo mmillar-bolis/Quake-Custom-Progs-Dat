@@ -274,6 +274,7 @@ void() execute_changelevel =
 		other.view_ofs = '0 0 0';
 		other.angles = other.v_angle = pos.mangle;
 		other.fixangle = TRUE;		// turn this way immediately
+		other.think = SUB_Null;
 		other.nextthink = time + 0.5;
 		other.takedamage = DAMAGE_NO;
 		other.solid = SOLID_NOT;
