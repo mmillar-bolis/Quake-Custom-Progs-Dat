@@ -690,4 +690,8 @@ float (entity e, float healamount, float ignore) T_Heal; // health function
 
 float(entity targ, entity inflictor) CanDamage;
 
-
+//
+//	triggers.qc
+//
+.float hurt_together_time;
+.float hurt_nextthink;
