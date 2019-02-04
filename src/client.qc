@@ -1230,6 +1230,16 @@ void(entity targ, entity attacker) ClientObituary =
 			return;
 		}
 
+		if (attacker.classname == "teledeath3")
+		{
+			bprint (targ.netname);
+			bprint (" was telefragged by ");
+			bprint (attacker.owner.netname);
+			bprint ("'s Satan's power\n");
+			attacker.owner.frags = attacker.owner.frags + 1;
+			return;
+		}
+
 		if (attacker.classname == "player")
 		{
 			if (targ == attacker)

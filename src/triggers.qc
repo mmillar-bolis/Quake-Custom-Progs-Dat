@@ -323,14 +323,42 @@ void() tdeath_touch =
 // frag anyone who teleports in on top of an invincible player
 	if (other.classname == "player")
 	{
-		if (other.invincible_finished > time)
-			self.classname = "teledeath2";
+
 		if (self.owner.classname != "player")
 		{	// other monsters explode themselves
 			T_Damage (self.owner, self, self, 50000);
 			return;
 		}
 
+		if (other.attack_state >= self.attack_state)
+			return;
+
+		if (other.invincible_finished > time)
+		{
+			if (self.owner.invincible_finished > time)
+			{
+				self.classname = "teledeath3";
+				other.invincible_finished = 0;
+				T_Damage (other, self, self, 50000);
+				local entity other2;
+				other2 = self.owner;
+				self.owner = other;
+				other2.invincible_finished = 0;
+				T_Damage (other2, self, self, 50000);
+			}
+			else
+			{
+				self.classname = "teledeath2";
+				T_Damage (self.owner, self, self, 50000);
+			}
+			return;
+		}
+
+		if (self.owner.classname != "player")
+		{
+			T_Damage (self.owner, self, self, 50000);
+			return;
+		}
 	}
 
 	if (other.health)
@@ -355,6 +383,7 @@ local entity	death;
 	death.nextthink = time + 0.2;
 	death.think = SUB_Remove;
 	death.owner = death_owner;
+	death.attack_state = death_owner.attack_state = time;
 
 	force_retouch = 2;		// make sure even still objects get hit
 };
@@ -412,6 +441,7 @@ local vector	org;
 	{
 		other.fixangle = 1;		// turn this way immediately
 		other.teleport_time = time + 0.7;
+		other.attack_state = time;
 		if (other.flags & FL_ONGROUND)
 			other.flags = other.flags - FL_ONGROUND;
 		other.velocity = v_forward * 300;
