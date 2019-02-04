@@ -1197,7 +1197,21 @@ void() ClientDisconnect =
 		bprint (" frags\n");
 
 	sound (self, CHAN_BODY, "player/tornoff2.wav", 1, ATTN_NONE);
+
+	if (self.modelindex == modelindex_eyes)
+		setmodel(self, "progs/player.mdl");
+
+	self.items = self.items - (self.items & (IT_INVISIBILITY | IT_INVULNERABILITY | IT_SUIT | IT_QUAD));
+
+	self.invisible_finished = 0;
+	self.invincible_finished = 0;
+	self.super_damage_finished = 0;
+	self.radsuit_finished = 0;
+	self.effects = 0;
+
 	set_suicide_frame ();
+	CopyToBodyQue(self);
+	setmodel(self, string_null);
 };
 
 /*
