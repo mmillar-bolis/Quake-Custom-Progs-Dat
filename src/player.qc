@@ -525,11 +525,12 @@ void() PlayerDie =
 {
 	local	float	i;
 
-	self.items = self.items - (self.items & IT_INVISIBILITY);
+	self.items = self.items - (self.items & (IT_INVISIBILITY | IT_INVULNERABILITY | IT_SUIT | IT_QUAD));
 	self.invisible_finished = 0;	// don't die as eyes
 	self.invincible_finished = 0;
 	self.super_damage_finished = 0;
 	self.radsuit_finished = 0;
+	self.effects = 0;
 	self.modelindex = modelindex_player;	// don't use eyes
 
 	if (deathmatch || coop)
