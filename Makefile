@@ -18,7 +18,7 @@ CC = gmqcc
 #                fteqcc - fteqcc standard
 #                   qcc - vanila QuakeC standard
 #
-CFLAGS  = -O2 -Wall -std=qcc
+CFLAGS  = -O2 -Wall -std=fteqcc
 
 # the build target executable:
 TARGET = progs
@@ -27,9 +27,9 @@ all: $(TARGET)
 
 $(TARGET):
 	cd ./src; \
-		$(CC) $(CFLAGS) -o $(TARGET).dat -s ./$(TARGET).src; \
-		cd ..; \
-		mv ./src/$(TARGET).dat ./
+	$(CC) $(CFLAGS) -o $(TARGET).dat -s ./$(TARGET).src; \
+	cd ..; \
+	mv ./src/$(TARGET).dat ./
 
 #$(TARGET):
 #	cd ./src; \
@@ -37,5 +37,5 @@ $(TARGET):
 #		cd ..
 
 clean:
-	rm $(TARGET).dat; \
-		rm src/progdefs.h
+	rm -f $(TARGET).dat; \
+	rm -f src/progdefs.h
