@@ -352,6 +352,43 @@ void() worldspawn =
 		correct_ftos = 0;
 	}
 
+	local float save_aim;
+	local float test_aim_1;
+	local float test_aim_2;
+	local string set_aim;
+
+	save_aim = cvar("sv_aim"); // save sv_aim as float
+
+	cvar_set("sv_aim", "0.93"); // set sv_aim for testing
+	test_aim_1 = cvar("sv_aim"); // get sv_aim as float
+	set_aim = ftos(test_aim_1); // convert to string
+	cvar_set("sv_aim", set_aim); // reset sv_aim with string
+	test_aim_2 = cvar("sv_aim"); // get sv_aim again as float
+	dprint("\"sv_aim\" was set by cvar_set() to \"");
+	dprint(ftos(test_aim_2));
+	dprint("\"\n");
+
+	if (test_aim_2 == test_aim_1) // still the same?
+	{
+		dprint("String to cvar conversion functioning.\n");
+		set_aim = ftos(save_aim);
+		cvar_set("sv_aim", set_aim); // reset to previous value
+		correct_cvars = 2;
+	}
+	else if (test_aim_2 == 0.9) // only ftos() error?
+	{
+		dprint("String to cvar conversion warning: ftos() truncating values\n");
+		set_aim = ftos(save_aim);
+		cvar_set("sv_aim", set_aim); // reset to previous value
+		correct_cvars = 1;
+	}
+	else
+	{
+		dprint("String to cvar conversion error: ftos() returned unexpected value\n");
+		cvar_set("sv_aim", "0.93"); // set to id's standard
+		correct_cvars = 0;
+	}
+
 };
 
 void() StartFrame =
