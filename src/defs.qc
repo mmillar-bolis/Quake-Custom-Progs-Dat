@@ -705,3 +705,4 @@ float	intermission_running;
 // world.qc
 //
 float correct_ftos;
+float correct_cvars;
