@@ -333,6 +333,25 @@ void() worldspawn =
 
 	// 63 testing
 	lightstyle(63, "a");
+
+	local string test_ftos;
+
+	test_ftos = ftos(0.93);	// convert to string
+	dprint("ftos() converted input 0.93 to string \"");
+	dprint(test_ftos);
+	dprint("\"\n");
+
+	if (test_ftos == "0.93" || test_ftos == " 0.93" || test_ftos == "  0.93")
+	{
+		dprint("ftos() patched: true\n");
+		correct_ftos = 1;
+	}
+	else
+	{
+		dprint("ftos() patched: false\n");
+		correct_ftos = 0;
+	}
+
 };
 
 void() StartFrame =

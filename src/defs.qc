@@ -700,3 +700,8 @@ float(entity targ, entity inflictor) CanDamage;
 // ai.qc
 //
 float	intermission_running;
+
+//
+// world.qc
+//
+float correct_ftos;
