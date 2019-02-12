@@ -696,7 +696,7 @@ void() CheckRules =
 
 void() PlayerDeathThink =
 {
-	local entity	old_self;
+	local float		do_respawn;
 	local float		forward;
 
 	if ((self.flags & FL_ONGROUND))
@@ -719,8 +719,45 @@ void() PlayerDeathThink =
 	}
 
 // wait for any button down
+	do_respawn = 0;
 	if (!self.button2 && !self.button1 && !self.button0)
-		return;
+	{
+		// Player wants to respawn ASAP
+		if (self.deadflag == DEAD_WAITING)
+		{
+			centerprint (self, "");     // Erase button release message
+			do_respawn = 1;
+		}
+		else
+		{
+			return;
+		}
+	}
+
+	// In netgames, don't respawn as long as a button is held
+	if (!do_respawn)
+	{
+		if (deathmatch || coop)
+		{
+			// Player wants to respawn ASAP.
+			self.deadflag = DEAD_WAITING;
+
+			// Message not necessary, but useful nonetheless.
+			if (self.button0)
+			{
+				centerprint (self, "Release attack to respawn");
+			}
+			else if (self.button1)
+			{
+				centerprint (self, "Release use to respawn");
+			}
+			else if (self.button2)
+			{
+				centerprint (self, "Release jump to respawn");
+			}
+			return;
+		}
+	}
 
 	self.button0 = 0;
 	self.button1 = 0;
