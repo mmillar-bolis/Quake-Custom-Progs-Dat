@@ -72,7 +72,7 @@ local string	stemp;
 local entity	etemp;
 
 	self.origin_z = self.origin_z + 1;	// raise off floor a bit
-	droptofloor();
+	droptofloor(0,0);
 
 	if (!walkmove(0,0))
 	{
@@ -115,7 +115,7 @@ local entity	etemp;
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
 };
 
 
@@ -123,7 +123,7 @@ void() walkmonster_start =
 {
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
 	self.think = walkmonster_start_go;
 	total_monsters = total_monsters + 1;
 };
@@ -171,12 +171,14 @@ void() flymonster_start_go =
 		self.pausetime = 99999999;
 		self.th_stand ();
 	}
+	self.nextthink = time + 0.1 + random()*0.5;
 };
 
 void() flymonster_start =
 {
+	self.flags = self.flags | FL_FLY;
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
 	self.think = flymonster_start_go;
 	total_monsters = total_monsters + 1;
 };
@@ -221,13 +223,14 @@ void() swimmonster_start_go =
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
 };
 
 void() swimmonster_start =
 {
+	self.flags = self.flags | FL_SWIM;
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
 	self.think = swimmonster_start_go;
 	total_monsters = total_monsters + 1;
 };
