@@ -281,6 +281,7 @@ void() monster_boss =
 
 	total_monsters = total_monsters + 1;
 
+	self.flags = self.flags | FL_MONSTER;
 	self.use = boss_awake;
 };
 
