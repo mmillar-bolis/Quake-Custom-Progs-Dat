@@ -705,3 +705,9 @@ float	intermission_running;
 //
 float correct_ftos;
 float correct_cvars;
+
+//
+// flash.qc
+//
+.float flash_flag;
+.entity flash;

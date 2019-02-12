@@ -10,6 +10,7 @@ void() SuperDamageSound;
 // called by worldspawn
 void() W_Precache =
 {
+	precache_model ("progs/null.spr");
 	precache_sound ("weapons/r_exp3.wav");	// new rocket explosion
 	precache_sound ("weapons/rocket1i.wav");	// spike gun
 	precache_sound ("weapons/sgun1.wav");
@@ -1239,7 +1240,8 @@ void() ImpulseCommands =
 		ServerflagsCommand ();
 	else if (self.impulse == 12)
 		CycleWeaponReverseCommand ();
-
+	else if (self.impulse == 30)
+		flash_toggle();
 	else if (self.impulse == 255)
 		QuadCheat ();
 
