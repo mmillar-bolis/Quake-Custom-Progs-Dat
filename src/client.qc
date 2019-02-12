@@ -391,12 +391,9 @@ void() ClientKill =
 	if ((intermission_running)&&((coop)||(deathmatch)))
 		return;
 
-	bprint (self.netname);
-	bprint (" suicides\n");
-	set_suicide_frame ();
-	self.modelindex = modelindex_player;
-	self.frags = self.frags - 2;	// extra penalty
-	respawn ();
+	self.deathtype = "suicide";
+	self.health = 0;
+	Killed(self,self);
 };
 
 float(vector v) CheckSpawnPoint =
@@ -1271,6 +1268,13 @@ void(entity targ, entity attacker) ClientObituary =
 				// killed self
 				attacker.frags = attacker.frags - 1;
 				bprint (targ.netname);
+
+				if (targ.deathtype == "suicide")
+				{
+					attacker.frags = attacker.frags - 1;	// extra penalty
+					bprint (" suicides\n");
+					return;
+				}
 
 				if (targ.weapon == IT_LIGHTNING && targ.waterlevel > 1)
 				{
