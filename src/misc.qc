@@ -173,7 +173,7 @@ void() misc_fireball =
 
 	precache_model ("progs/lavaball.mdl");
 	self.classname = "fireball";
-	self.nextthink = time + (random() * 5);
+	self.nextthink = time + 0.1 + (random() * 5);
 	self.think = fire_fly;
 	if (!self.speed)
 		self.speed = 1000;
@@ -352,7 +352,7 @@ void() trap_shooter =
 
 	if (self.wait == 0)
 		self.wait = 1;
-	self.nextthink = self.nextthink + self.wait + self.ltime;
+	self.nextthink = time + self.wait + self.ltime;
 	self.think = shooter_think;
 };
 
