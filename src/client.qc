@@ -1272,9 +1272,14 @@ void(entity targ, entity attacker) ClientObituary =
 				attacker.frags = attacker.frags - 1;
 				bprint (targ.netname);
 
-				if (targ.weapon == 64 && targ.waterlevel > 1)
+				if (targ.weapon == IT_LIGHTNING && targ.waterlevel > 1)
 				{
-					bprint (" discharges into the water.\n");
+					if (targ.watertype == CONTENT_SLIME)
+						bprint (" discharges into the slime.\n");
+					else if (targ.watertype == CONTENT_LAVA)
+						bprint (" discharges into the lava.\n");
+					else
+						bprint (" discharges into the water.\n");
 					return;
 				}
 				if (targ.weapon == IT_GRENADE_LAUNCHER)
