@@ -367,7 +367,7 @@ float() FindTarget =
 	{
 		client = sight_entity;
 		if (client.enemy == self.enemy)
-			return;
+			return FALSE;
 	}
 	else
 	{
