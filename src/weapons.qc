@@ -1232,16 +1232,16 @@ void() ImpulseCommands =
 	if (self.impulse >= 1 && self.impulse <= 8)
 		W_ChangeWeapon ();
 
-	if (self.impulse == 9)
+	else if (self.impulse == 9)
 		CheatCommand ();
-	if (self.impulse == 10)
+	else if (self.impulse == 10)
 		CycleWeaponCommand ();
-	if (self.impulse == 11)
+	else if (self.impulse == 11)
 		ServerflagsCommand ();
-	if (self.impulse == 12)
+	else if (self.impulse == 12)
 		CycleWeaponReverseCommand ();
 
-	if (self.impulse == 255)
+	else if (self.impulse == 255)
 		QuadCheat ();
 
 	self.impulse = 0;
